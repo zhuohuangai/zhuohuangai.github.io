@@ -1,184 +1,373 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="Zhuo Huang">
-    <meta name="description" content="Zhuo Huang's home page">
-    <title>Zhuo Huang</title>
-    <link rel="stylesheet" href="css/jemdoc.css" type="text/css">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137722442-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-137722442-1');
-    </script>
-</head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zhuo Huang - Academic Page</title>
+    <style>
+        /* Based on Screenshots + Eduardo Velloso Typography */
+        :root {
+            --bg-color: #FBF7F2;
+            --text-color: #1a2a3a;
+            --link-color: #004a99;
+        }
 
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar - Underline Removed */
+        .ev-navbar {
+            padding: 3rem 5%;
+            background-color: var(--bg-color);
+        }
+
+        .ev-navbar--list {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        .ev-navbar--link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-bottom: none; /* Strictly removed the bar */
+        }
+
+        /* Indicate active state with a slightly different color or opacity if desired, 
+           otherwise it stays as plain text per your request */
+        .ev-navbar--link__active {
+            color: #000;
+        }
+
+        /* Main Content Container */
+        .ev-page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5% 5% 5%;
+        }
+
+        .section-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        /* Layout for Home and Bio (Split view) */
+        .split-view {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .email-img {
+            /* Adjust this value until it looks right to you */
+            height: 2.3rem; 
+            
+            /* Ensures the image doesn't look blurry when resized */
+            image-rendering: -webkit-optimize-contrast; 
+    
+            vertical-align: middle;
+            display: inline-block;
+            /* Adjust margin to push the image up or down for perfect alignment */
+            margin-bottom: -10px; 
+        }
+
+                /* Modal Background */
+        .modal-overlay {
+            display: none; /* Hidden until clicked */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dims the background */
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* White box for the QR code */
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .modal-content img {
+            width: 100%; /* Adjusts to modal size */
+            height: auto;
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        /* Typography */
+        p, li {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+        }
+
+        /* Scrolling functionality for News and People */
+        .scrollable-content {
+            max-height: 50vh;
+            overflow-y: auto;
+            padding-right: 20px;
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Target the scrollable area */
+        .scrollable-content::-webkit-scrollbar {
+            width: 12px;               /* This makes the bar thicker */
+        }
+
+        /* The background track */
+        .scrollable-content::-webkit-scrollbar-track {
+            background: #eee;          /* Light grey track */
+            border-radius: 10px;
+        }
+
+        /* The actual draggable bar */
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: #888;          /* Darker grey bar */
+            border-radius: 10px;       /* Rounded edges */
+            border: 2px solid #eee;    /* Adds a little space around the thumb */
+        }
+
+        /* Color when you hover over the bar */
+        .scrollable-content::-webkit-scrollbar-thumb:hover {
+            background: #555;          /* Makes it even darker when hovering */
+        }
+
+        .split-view {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr; /* Exact same ratio as Home page */
+            gap: 4rem;
+            align-items: start; /* Keeps photo at the top of the section */
+            width: 100%;
+        }
+
+        .id-photo-frame {
+            width: 280px;
+            height: 380px;
+            border: 1px solid #000;
+            justify-self: center; /* Centers the box within the right-hand column */
+        }
+
+        .profile-img {
+            width: 100%;       /* Forces image to match frame width */
+            height: 100%;      /* Forces image to match frame height */
+            object-fit: cover; /* Automatically scales and crops to fit perfectly */
+            display: block;
+        }
+
+        /* Contact Components */
+        .note-area {
+            width: 100%;
+            max-width: 500px;
+            height: 150px;
+            border: 1px solid #000;
+            background: transparent;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1.1rem;
+        }
+
+        .btn-send {
+            background: #fff;
+            border: 1px solid #000;
+            padding: 5px 25px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        a { color: var(--link-color); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        @media (max-width: 900px) {
+            .split-view { grid-template-columns: 1fr; }
+            .ev-navbar--list { gap: 1.5rem; flex-wrap: wrap; }
+        }
+    </style>
+</head>
 <body>
 
-    <div id="layout-content" style="margin: 25px auto; max-width: 1000px; padding: 20px;">
-        <!-- Main Header -->
-        <header style="text-align: center; margin-bottom: 20px;">
-            <h1 style="font-size: 2.5em; margin-bottom: 5px;">Zhuo Huang</h1>
-            <h3 style="color: gray;">Ph.D. Student</h3>
-        </header>
+    <nav class="ev-navbar">
+        <ul class="ev-navbar--list">
+            <li><a id="nav-home" class="ev-navbar--link ev-navbar--link__active" onclick="showPage('home')">Home</a></li>
+            <li><a id="nav-bio" class="ev-navbar--link" onclick="showPage('bio')">Bio</a></li>
+            <li><a id="nav-people" class="ev-navbar--link" onclick="showPage('people')">People</a></li>
+            <li><a id="nav-research" class="ev-navbar--link" onclick="showPage('research')">Research</a></li>
+            <li><a id="nav-contact" class="ev-navbar--link" onclick="showPage('contact')">Contact</a></li>
+        </ul>
+    </nav>
 
-        <!-- Contact and Links -->
-        <section>
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
-                <!-- Information -->
-                <div style="flex: 1; min-width: 300px;">
-                    <p>
-                        <a href="https://www.sydney.edu.au/engineering/our-research/data-science-and-computer-engineering/sydney-artificial-intelligence-centre.html">Sydney AI Centre</a><br>
-                        <a href="https://www.sydney.edu.au/engineering/schools/school-of-computer-science.html">School of Computer Science</a><br>
-                        <a href="https://www.sydney.edu.au/">The University of Sydney</a>
-                    </p>
-                    <p>
-                        Address: J12/1 Cleveland St, Darlington, NSW 2008, Australia <br>
-                        Email: <a href="mailto:zhuohuang.ai@gmail.com">zhuohuang DOT ai AT gmail DOT com</a>
-                    </p>
-                    <p>
-                        <a href="https://github.com/zhuohuangai/"><img src="assets/logos/github_logo.png" alt="GitHub Profile" height="30"></a>
-                        <a href="https://scholar.google.com/citations?hl=zh-CN&user=BbY3MRIAAAAJ&view_op=list_works"><img src="assets/logos/google_logo.png" alt="Google Scholar Profile" height="30"></a>
-                    </p>
+    <main class="ev-page-container">
+        
+        <section id="home" class="section-content active">
+            <div class="split-view">
+                <div>
+                    <h1>ZHUO HUANG</h1>
+                    <p>PhD student at The University of Sydney</p>
+                    <h2>News:</h2>
+                    <div class="scrollable-content">
+                        <ul>
+                            <li>01/2026, I gratefully received the USYD Faculty of Engineering Career Advancement Award.</li>
+                            <li>10/2025, I was invited to give a talk on "Machine-Supervised Learning" at SJTU International Young Scholar Workshop, thanks to Prof. Chen Gong.</li>
+                            <li>10/2025, I started my visiting at RIKEN AIP, Japan, Tokyo.</li>
+                            <li>09/2025, I was invited to give a talk on "Generalizable Machine Learning" at Sydney University Data Society (SUDATA).</li>
+                            <li>09/2025, I was invited to give a talk on "Out-of-Modal Generalization" at Annual Conference on Postgraduate Research in Engineering Student Society (PRESS).</li>
+                            <li>04/2025, I started my visiting at MBZUAI, Abu Dhabi, UAE.</li>
+                            <li>06/2025, One paper in Machine Unlearning got accepted at ICML 2026, congrats to Mr. Puning Yang and Dr. Qizhou Wang.</li>
+                            <li>04/2025, I attended ICLR 2025 at Singapore.</li>
+                            <li>03/2025, I was awarded with RSF and PRSS Funding from Faculty of Engineering and The University of Sydney, respectively.</li>
+                        </ul>
+                    </div>
                 </div>
-
-                <!-- Profile Image -->
-                <div style="flex: 1; min-width: 200px; text-align: center;">
-                    <img src="assets/imgs/6551734419715_.pic.jpg" alt="Zhuo Huang's profile picture" style="max-width: 80%; border-radius: 10px;">
+                <div class="id-photo-frame">
+                    <img src="assets/imgs/profilephoto.WEBP" alt="Zhuo Huang" class="profile-img">
                 </div>
             </div>
         </section>
 
-        <!-- Biography -->
-        <section>
-            <h2>Biography</h2>
-            <p>
-                I am currently a last-year Ph.D. student at the School of Computer Science, The University of Sydney, 
-                feeling fortunate to learn from Prof. <a href="https://tongliang-liu.github.io/" target="_blank">Tongliang Liu</a>. 
-                I was a visiting scholar at THU. I aim to achieve generalized AI to benefit human lives, for which I devote my efforts to Genaralizable Machine Learning and Trustworthy AGI.
-            </p>
+        <section id="bio" class="section-content">
+            <div class="split-view">
+                <div class="left-col">
+                    <p>
+                        I am a final-year PhD candidate in Computer Science at the University of Sydney, supervised by Prof. <a href="https://tongliang-liu.github.io/index.html">Tongliang Liu</a>. I was a visiting PhD student at RIKEN AIP, hosted by Prof. <a href="https://aip.riken.jp/about-aip/leadership/">Masashi Sugiyama</a>. I was a visiting PhD student at MBZUAI, hosted by Prof. <a href="https://tongliang-liu.github.io/index.html">Tongliang Liu</a>. I was a visiting PhD student at Tsinghua University, hosted by Prof. <a href="https://scholar.google.com/citations?user=dxN1_X0AAAAJ&hl=en">Hang Su</a>. I was an intern at JD.com, working in the ML group led by Prof. <a href="https://scholar.google.com/citations?user=yVhgENIAAAAJ&hl=en">Li Shen</a>. I was awarded with Faculty Career Advancement Award, TML Research Gold Award, LEAP Fellow, National Scholarship, various Outstanding Reviewer Awards, and various Outstanding Dissertations Awards.
+                    </p>
+                    <p>
+                        I was an academic tutor for COMP5328/4328: Advanced Machine Learning and COMP5318: Machine Learning and Data Mining, and I was the lecturer for Computer Science tutorial: Machine Learning under Distribution Shifts.
+                    </p>
+                </div>
+
+                <div class="id-photo-frame">
+                    <img src="assets/imgs/profilephoto.WEBP" class="profile-img" alt="Zhuo Huang">
+                </div>
+            </div>
         </section>
 
-        <!-- My Quote -->
-        <section>
-            <h3>My Quote</h3>
-            <blockquote>
-                <p>“<em>It ain’t what you don’t know that gets you into trouble; it’s what you know for sure that just ain’t so.</em>” --Mark Twain</p>
-            </blockquote>
-        </section>
 
-        <!-- Collaboration -->
-        <section>
-            <h2>Collaborations</h2>
-            <p style="color: red;">
-                I am actively seeking research collaborations in areas such as generalized machine learning, multi-modal learning, out-of-distribution generalization, and AI safety.
-                If you are interested in working together, please feel free to contact me.
-            </p>
-            <p>
-                <b>What I can provide:</b><br>
+
+        <section id="people" class="section-content">
+            <p>I am fortunate to work with some brilliant minds:</p>
+            <div class="scrollable-content">
                 <ul>
-                    <li>For senior researchers: I can propose interesting ideas, build connections, and make impactful contributions toward advancing AGI.</li>
-                    <li>For junior researchers: I can assist with presentation, critical thinking, and help you publish high-standard papers.</li>
-                </ul>
-            </p>
+                    <li><a href="https://scholar.google.com/citations?user=GkYIrlIAAAAJ&hl=en" target="_blank">Prof. Masashi Sugiyama</a>, RIKEN AIP & The University of Tokyo</li>
+                    <li><a href="https://scholar.google.com/citations?user=HOkcy00AAAAJ&hl=en" target="_blank">Dr. Gang Niu</a>, RIKEN AIP</li>
+                    <li><a href="https://scholar.google.com/citations?user=EiLdZ_YAAAAJ&hl=en" target="_blank">Prof. Tongliang Liu</a>, The University of Sydney</li>
+                    <li><a href="https://scholar.google.com/citations?user=guttoBwAAAAJ&hl=en" target="_blank">Prof. Chen Gong</a>, Shanghai Jiaotong University</li>
+                    <li><a href="https://scholar.google.com/citations?user=nTNjqHwAAAAJ&hl=en" target="_blank">Prof. Bo Han</a>, Hong Kong Baptist University</li>
+                    <li><a href="https://scholar.google.com/citations?user=6BmiCJIAAAAJ&hl=en" target="_blank">Prof. Mingming Gong</a>, The University of Melbourne</li>
+                    <li><a href="https://scholar.google.com/citations?user=dxN1_X0AAAAJ&hl=en" target="_blank">Prof. Hang Su</a>, Tsinghua University</li>
+                    <li><a href="https://scholar.google.com/citations?user=yVhgENIAAAAJ&hl=en" target="_blank">Prof. Li Shen</a>, Sun Yat-sen University</li>
+                    <li><a href="https://scholar.google.com/citations?user=OkcaMKAAAAAJ&hl=en" target="_blank">Prof. Yu Yao</a>, The University of Sydney</li>
+                    <li><a href="https://scholar.google.com/citations?user=jRsugY0AAAAJ&hl=en" target="_blank">Prof. Xiaobo Xia</a>, University of Science and Technology China</li>
+                    <li><a href="https://scholar.google.com/citations?user=b-e_2cYAAAAJ&hl=en" target="_blank">Dr. Qizhou Wang</a>, RIKEN AIP</li>
+                    <li><a href="https://scholar.google.com/citations?user=j6gyDlIAAAAJ&hl=en" target="_blank">Mr. Ziming Hong</a>, The University of Sydney</li>
+                    <li><a href="https://scholar.google.com/citations?user=IToKeqYAAAAJ&hl=en" target="_blank">Mr. Quan M. Tran</a>, The University of Sydney</li>
+                    <li><a href="" target="_blank">Mr. Andrew Cao</a>, The University of Sydney</li>
+                    <li><a href="https://scholar.google.com/citations?user=_QGfhW8AAAAJ&hl=en" target="_blank">Mr. Puning Yang</a>, MBZUAI</li>
+                    <li><a href="https://scholar.google.com/citations?user=pIGIxewAAAAJ&hl=en" target="_blank">Mr. Xiaohao Liu</a>, Nanyang Technological University</li>
+                    </ul>
+            </div>
         </section>
 
-        <!-- Publication -->
-        <section>
-            <h2>Publication</h2>
+        <section id="research" class="section-content">
+            <p>My research interests mainly include, but not limited to:</p>
             <ul>
-                All codes can be found on my GitHub page.
-                <li><p>
-                    <A HREF="https://openreview.net/pdf?id=LuVulfPgZN">Towards Out-of-Modal Generalization without Instance-level Modal Correspondence
-            </A><br>
-                    <b>Z. Huang</b>, G. Niu, B. Han, M. Sugiyama, T. Liu <br>
-                    ICLR 2025<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://openreview.net/pdf?id=VRRvJnxgQe">NoiseGPT: Label Noise Detection and Rectification through Probability Curvature
-            </A><br>
-                    H. Wang, <b>Z. Huang</b>, Z. Lin, T. Liu <br>
-                    NeurIPS 2024<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://openreview.net/forum?id=LwOfVWgEzS">Machine Vision Therapy: Multimodal Large Language Models Can Enhance Visual Robustness via Denoising In-Context Learning
-            </A><br>
-                    <b>Z. Huang</b>, C. Liu, Y. Dong, H. Su, S. Zheng, T. Liu <br>
-                    ICML 2024<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://openreview.net/pdf?id=FYKVPOHCpE">Improving Non-Transferable Representation Learning by Harnessing Content and Style</A> [<font color="red">Spotlight</font>]<br>
-                    Z. Hong, Z. Wang, L. Shen, Y. Yao, <b>Z. Huang</b>, S. Chen, C. Yang, M. Gong, T. Liu <br>
-                    ICLR 2024<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://link.springer.com/article/10.1007/s11263-024-02075-x">Winning Prize Comes from Losing Tickets: Improve Invariant Learning by Exploring Variant Parameters for Out-of-Distribution Generalization
-            </A><br>
-                    <b>Z. Huang</b>, M. Li, L. Shen, J. Yu, C. Gong, B. Han, T. Liu <br>
-                    IJCV 2024<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://proceedings.neurips.cc/paper_files/paper/2023/file/3b11c5cc84b6da2838db348b37dbd1a2-Paper-Conference.pdf">FlatMatch: Bridging Labeled Data and Unlabeled Data with Cross-Sharpness for Semi-Supervised Learning
-            </A><br>
-                    <b>Z. Huang</b>, L. Shen, J. Yu, B. Han, T. Liu <br>
-                    NeurIPS 2023<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://openaccess.thecvf.com/content/CVPR2023/papers/Huang_Robust_Generalization_Against_Photon-Limited_Corruptions_via_Worst-Case_Sharpness_Minimization_CVPR_2023_paper.pdf">Robust Generalization against Photon-Limited Corruptions via Worst-Case Sharpness Minimization
-            </A><br>
-                    <b>Z. Huang</b>*, M. Zhu*, X. Xia, L. Shen, J. Yu, C. Gong, B. Han, B. Du, T. Liu <br>
-                    CVPR 2023<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://openreview.net/pdf?id=boNyg20-JDm">Harnessing Out-Of-Distribution Examples via Augmenting Content and Style
-            </A><br>
-                    <b>Z. Huang</b>, X. Xia, L. Shen, B. Han, M. Gong, C. Gong, T. Liu <br>
-                    ICLR 2023<br>
-                </p></li>
-            <!--     <li><p>
-                    <A HREF="https://dl.acm.org/doi/abs/10.1145/3635310">Dynamic Weighted Adversarial Learning for Semi-Supervised Classification under Intersectional Class Mismatch
-            </A><br>
-                    M. Li, T. Zhou, <b>Z. Huang</b>, J. Yang, J. Yang, C. Gong <br>
-                    ACM TOMM 2023<br>
-                </p></li>
-                <li><p>
-                    <A HREF="https://ieeexplore.ieee.org/abstract/document/9786767">They are Not Completely Useless: Towards Recycling Transferable Unlabeled Data for Class-Mismatched Semi-Supervised Learning
-            </A><br>
-                    <b>Z. Huang</b>, J. Yang, C. Gong <br>
-                    IEEE TMM 2022<br>
-                </p></li> -->
-<!--                 <li><p>
-                    <A HREF="https://proceedings.neurips.cc/paper/2021/hash/e06f967fb0d355592be4e7674fa31d26-Abstract.html">Universal Semi-Supervised Learning
-            </A><br>
-                    <b>Z. Huang</b>, X. Chao, B. Han, J. Yang, C. Gong <br>
-                    NeurIPS 2021<br>
-                </p></li> -->
+                <li>Generalizable AI: <a href="https://arxiv.org/abs/2207.03162">ICLR23</a>, <a href="https://openaccess.thecvf.com/content/CVPR2023/html/Huang_Robust_Generalization_Against_Photon-Limited_Corruptions_via_Worst-Case_Sharpness_Minimization_CVPR_2023_paper.html">CVPR23</a>, <a href="https://openreview.net/forum?id=FYKVPOHCpE">ICLR24</a>, <a href="https://arxiv.org/abs/2310.16391">IJCV24</a></li>
+                <li>Multi-Modal Learning: <a href="https://arxiv.org/abs/2312.02546">ICML24</a>, <a href="https://arxiv.org/abs/2412.18277">ACM MM24</a>, <a href="https://openreview.net/forum?id=LuVulfPgZN">ICLR25</a></li>
+                <li>Trustworthy Machine Learning: <a href="https://proceedings.neurips.cc/paper/2021/hash/e06f967fb0d355592be4e7674fa31d26-Abstract.html">NeurIPS21</a>, <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/3b11c5cc84b6da2838db348b37dbd1a2-Abstract-Conference.html">NeurIPS23</a>, <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=BbY3MRIAAAAJ&citation_for_view=BbY3MRIAAAAJ:M05iB0D1s5AC">NeurIPS24</a>, <a href="https://arxiv.org/abs/2505.11953">ICML25</a>, <a href="https://arxiv.org/abs/2011.13529">TMM22</a></li>
+                <li>Agentic AI: </li>
+                <li>Physical AI: </li>
             </ul>
-
-
+            <p>For more publications, please refer to <a href="https://scholar.google.com/citations?user=BbY3MRIAAAAJ&hl=en">Google Scholar</a>.</p>
         </section>
 
-        <!-- Academic Services -->
-        <section>
-            <h2>Academic Services</h2>
+        <section id="contact" class="section-content">
+            <p>You can reach out through:</p>
             <ul>
-                <li>Conference Reviewer: ICML, NeurIPS, ICLR, CVPR, ICCV, IJCAI, AAAI, AISTATS, UAI, ACM MM, etc.</li>
-                <li>Journal Reviewer: TPAMI, TIP, TMM, TMLR, MLJ, NEUNET, etc.</li>
+                <li>Email: 
+                    <a href="javascript:void(0);" onclick="openMail()">
+                        <img src="assets/imgs/email.png" alt="Contact Email" class="email-img">
+                    </a>
+                </li>
+                <li>Wechat: <a href="javascript:void(0)" onclick="toggleQR()">QR code</a></li>
+                <div id="qr-modal" class="modal-overlay" onclick="toggleQR()">
+                    <div class="modal-content">
+                        <img src="assets/imgs/qrcode.JPG" alt="WeChat QR Code">
+                        <p style="font-size: 1rem; margin-top: 10px;">Scan to connect on WeChat</p>
+                    </div>
+                </div>
+                <li>Linkedin: <a href="https://www.linkedin.com/in/zhuo-huang-06863628a/" target="_blank">Profile</a></li>
             </ul>
+            <!-- <form action="https://formspree.io/f/YOUR_ID" method="POST">
+                <p>Leave a note:</p>    
+                <textarea name="message" class="note-area"></textarea>
+                <br>
+                <button type="submit" class="btn-send">send</button>
+            </form> -->
         </section>
 
-        <!-- Footer -->
-        <footer style="text-align: center; margin-top: 30px; color: gray;">
-            &copy; Zhuo Huang | Last Update: Feb 2024
-        </footer>
-        <br></br>
-        <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=080808&w=200&t=tt&d=SPK49HA1_klxO8zZip0cZ0sdLwOfR5BBZPm6Pe9ikzY&co=ffffff&ct=808080&cmo=3acc3a&cmn=ff5353'></script>
+    </main>
 
-    </div>
+    <script>
+        function showPage(pageId) {
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(s => s.classList.remove('active'));
+
+            const links = document.querySelectorAll('.ev-navbar--link');
+            links.forEach(l => l.classList.remove('ev-navbar--link__active'));
+
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('ev-navbar--link__active');
+        }
+        function toggleQR() {
+            const modal = document.getElementById('qr-modal');
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'flex';
+            }
+        }
+        function openMail() {
+            var part1 = "zhuohuang";
+            var part2 = "ai";
+            var part3 = "gmail.com";
+            window.location.href = "mailto:" + part1 + "." + part2 + "@" + part3;
+        }
+    </script>
 </body>
-
 </html>
