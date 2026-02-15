@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +87,29 @@
             margin-bottom: -10px; 
         }
 
-                /* Modal Background */
+        /* Style for links that act like buttons (QR Code, LinkedIn) */
+        #contact ul li a {
+            transition: all 0.2s ease;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        #contact ul li a:hover {
+            background-color: #E5DBCF; /* Matches your scrollbar theme */
+            color: #000;
+            text-decoration: none;
+        }
+
+        /* Specific fix for the Email Image hover */
+        .email-img {
+            transition: transform 0.2s ease;
+        }
+
+        .email-img:hover {
+            transform: scale(1.05); /* Subtle pop for the image */
+        }
+
+        /* Modal Background */
         .modal-overlay {
             display: none; /* Hidden until clicked */
             position: fixed;
@@ -138,35 +161,68 @@
             margin-top: 2rem;
         }
 
-        /* Scrolling functionality for News and People */
+        /* Optimized Navigation Links */
+        .ev-navbar--link {
+            position: relative;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding-bottom: 8px;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        .ev-navbar--link:hover {
+            color: #000; /* Darken on hover */
+            text-decoration: none; /* Keep it clean */
+        }
+
+        .ev-navbar--link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0; 
+            height: 3px;
+            background-color: #000;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Snappier animation */
+        }
+
+        .ev-navbar--link__active::after {
+            width: 100%;
+        }
+
+        /* Target the scrollable area in the first code */
         .scrollable-content {
             max-height: 50vh;
             overflow-y: auto;
-            padding-right: 10px;
-            border-right: 1px solid rgba(0,0,0,0.05);
+            padding-right: 15px; /* Adds space so text doesn't touch the bar */
         }
 
-        /* Target the scrollable area */
+        /* 1. The width of the entire scrollbar */
         .scrollable-content::-webkit-scrollbar {
-            width: 6px;               /* This makes the bar thicker */
+            width: 8px;
         }
 
-        /* The background track */
+        /* 2. The background track */
         .scrollable-content::-webkit-scrollbar-track {
-            background: #eee;          /* Light grey track */
-            border-radius: 5px;
+            background: #eee; 
+            border-radius: 10px;
         }
 
-        /* The actual draggable bar */
+        /* 3. The draggable thumb (The sliding part) */
         .scrollable-content::-webkit-scrollbar-thumb {
-            background: #E5DBCF;          /* Darker grey bar */
-            border-radius: 5px;       /* Rounded edges */
-            border: 1px solid #eee;    /* Adds a little space around the thumb */
+            background: #E5DBCF; 
+            border-radius: 10px;
+            /* This border creates a "padding" effect around the thumb */
+            border: 2px solid #eee; 
         }
 
-        /* Color when you hover over the bar */
+        /* 4. Color change on hover for a better feel */
         .scrollable-content::-webkit-scrollbar-thumb:hover {
-            background: #C9BBA8;          /* Makes it even darker when hovering */
+            background: #C9BBA8; 
         }
 
         .split-view {
@@ -206,9 +262,25 @@
         .btn-send {
             background: #fff;
             border: 1px solid #000;
-            padding: 5px 25px;
+            padding: 8px 30px;
             cursor: pointer;
             font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 0 rgba(0,0,0,0); /* Invisible shadow */
+        }
+
+        .btn-send:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Soft shadow */
+        }
+
+        .btn-send:active {
+            transform: translateY(0); /* Press down effect */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         a { color: var(--link-color); text-decoration: none; }
