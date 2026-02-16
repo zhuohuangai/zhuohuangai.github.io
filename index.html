@@ -74,18 +74,6 @@
             align-items: start;
         }
         
-        .email-img {
-            /* Adjust this value until it looks right to you */
-            height: 2.3rem; 
-            
-            /* Ensures the image doesn't look blurry when resized */
-            image-rendering: -webkit-optimize-contrast; 
-    
-            vertical-align: middle;
-            display: inline-block;
-            /* Adjust margin to push the image up or down for perfect alignment */
-            margin-bottom: -10px; 
-        }
 
         /* Style for links that act like buttons (QR Code, LinkedIn) */
         #contact ul li a {
@@ -100,16 +88,18 @@
             text-decoration: none;
         }
 
-        /* Specific fix for the Email Image hover */
         .email-img {
-            transition: transform 0.2s ease;
+            height: 2.3rem; 
+            image-rendering: -webkit-optimize-contrast; 
+            vertical-align: middle;
+            display: inline-block;
+            margin-bottom: -10px;
         }
-
-        .email-img:hover {
-            transform: scale(1.05); /* Subtle pop for the image */
+        
+        #contact ul li a.email-link:hover {
+            background-color: transparent;
         }
-
-        /* Modal Background */
+        
         .modal-overlay {
             display: none; /* Hidden until clicked */
             position: fixed;
@@ -395,7 +385,7 @@
             <p>You can reach out through:</p>
             <ul>
                 <li>Email: 
-                    <a href="javascript:void(0);" onclick="openMail()">
+                    <a href="javascript:void(0)" onclick="openMail()" class="email-link">
                         <img src="assets/imgs/email.png" alt="Contact Email" class="email-img">
                     </a>
                 </li>
