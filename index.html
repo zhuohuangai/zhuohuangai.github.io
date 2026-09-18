@@ -276,6 +276,26 @@
         a { color: var(--link-color); text-decoration: none; }
         a:hover { text-decoration: underline; }
 
+        /* Short articles in MISC */
+        .misc-articles { max-width: 800px; }
+        .misc-article {
+            border-top: 1px solid #C9BBA8;
+            padding: 1.5rem 0;
+        }
+        .misc-article summary {
+            cursor: pointer;
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+        .misc-article time {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 0.4rem;
+        }
+        .misc-article p { overflow-wrap: anywhere; }
+
         @media (max-width: 900px) {
             .split-view { grid-template-columns: 1fr; }
             .ev-navbar--list { gap: 1.5rem; flex-wrap: wrap; }
@@ -286,11 +306,12 @@
 
     <nav class="ev-navbar">
         <ul class="ev-navbar--list">
-            <li><a id="nav-home" class="ev-navbar--link ev-navbar--link__active" onclick="showPage('home')">Home</a></li>
-            <li><a id="nav-bio" class="ev-navbar--link" onclick="showPage('bio')">Bio</a></li>
-            <li><a id="nav-people" class="ev-navbar--link" onclick="showPage('people')">People</a></li>
-            <li><a id="nav-research" class="ev-navbar--link" onclick="showPage('research')">Research</a></li>
-            <li><a id="nav-contact" class="ev-navbar--link" onclick="showPage('contact')">Contact</a></li>
+            <li><a id="nav-home" href="#home" class="ev-navbar--link ev-navbar--link__active">Home</a></li>
+            <li><a id="nav-bio" href="#bio" class="ev-navbar--link">Bio</a></li>
+            <li><a id="nav-people" href="#people" class="ev-navbar--link">People</a></li>
+            <li><a id="nav-research" href="#research" class="ev-navbar--link">Research</a></li>
+            <li><a id="nav-contact" href="#contact" class="ev-navbar--link">Contact</a></li>
+            <li><a id="nav-misc" href="#misc" class="ev-navbar--link">Misc</a></li>
         </ul>
     </nav>
 
@@ -304,6 +325,7 @@
                     <h2>News:</h2>
                     <div class="scrollable-content">
                         <ul>
+                            <li>09/2026, I was invited to serve as an Area Chair at ICLR 2027.</li>
                             <li>06/2026, I started my Postdoc at Causal AI Group, AIML, Adelaide University.</li>
                             <li>06/2026, I gratefully received the Top Reviewer Award (3%) from UAI 2026.</li>
                             <li>01/2026, I gratefully received the USYD Faculty of Engineering Career Advancement Award.</li>
@@ -411,10 +433,36 @@
             </form> -->
         </section>
 
+        <section id="misc" class="section-content">
+            <h1>Misc</h1>
+            <p>Short articles and occasional notes.</p>
+            <div class="misc-articles">
+                <p class="misc-empty">No articles yet.</p>
+
+                <!--
+                To publish: copy the article below outside this comment, replace
+                the title, date and text, and remove the misc-empty paragraph.
+                Add new articles at the top. See README.md for instructions.
+
+                <article class="misc-article">
+                    <details>
+                        <summary>
+                            Your article title
+                            <time datetime="2026-09-18">September 18, 2026</time>
+                        </summary>
+                        <p>Your first paragraph.</p>
+                        <p>Your next paragraph.</p>
+                    </details>
+                </article>
+                -->
+            </div>
+        </section>
+
     </main>
 
     <script>
         function showPage(pageId) {
+            if (!document.getElementById('nav-' + pageId)) pageId = 'home';
             const sections = document.querySelectorAll('.section-content');
             sections.forEach(s => s.classList.remove('active'));
 
@@ -424,6 +472,8 @@
             document.getElementById(pageId).classList.add('active');
             document.getElementById('nav-' + pageId).classList.add('ev-navbar--link__active');
         }
+        window.addEventListener('hashchange', () => showPage(window.location.hash.slice(1)));
+        showPage(window.location.hash.slice(1));
         function toggleQR() {
             const modal = document.getElementById('qr-modal');
             if (modal.style.display === 'flex') {
