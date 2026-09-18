@@ -10,9 +10,7 @@ You can edit this file on GitHub or locally.
    inside `<div class="misc-articles">`. Put the newest article first.
 3. Replace the title, date (both `datetime="YYYY-MM-DD"` and the visible date),
    and paragraphs with your writing. Wrap each paragraph in `<p>...</p>`.
-4. When publishing your first article, remove
-   `<p class="misc-empty">No articles yet.</p>`.
-5. Commit the changes to `main`. GitHub Pages will publish them through the
+4. Commit the changes to `main`. GitHub Pages will publish them through the
    repository's existing deployment process.
 
 Readers click an article title to expand or collapse it. To display an article
